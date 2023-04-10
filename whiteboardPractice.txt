@@ -1,0 +1,15 @@
+//const prefixSir = addPrefix("Sir") {
+
+//}
+
+function addPrefix() {
+  const prefix = "Sir";
+  return function(name) {
+    return prefix + " " + name;
+  }
+}
+
+
+const prefixSir = addPrefix("Sir");
+const prefixNoah = addPrefix("Noah");
+const prefixJohn = addPrefix("John");

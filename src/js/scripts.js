@@ -39,4 +39,33 @@ const coinCounter = (amt) => {
 
 
 
+const coinCounter = (amt, coinCounts = { quarters: 0, dimes: 0, nickels: 0, pennies: 0 }) => {
+  if (amt < 1) {
+    console.log("quarters = " + coinCounts.quarters);
+    console.log("dimes = " + coinCounts.dimes);
+    console.log("nickels = " + coinCounts.nickels);
+    console.log("pennies = " + coinCounts.pennies);
+    return;
+  }
+
+  if (amt >= 25) {
+    coinCounts.quarters++;
+    coinCounter(amt - 25, coinCounts);
+  } else if (amt >= 10) {
+    coinCounts.dimes++;
+    coinCounter(amt - 10, coinCounts);
+  } else if (amt >= 5) {
+    coinCounts.nickels++;
+    coinCounter(amt - 5, coinCounts);
+  } else {
+    coinCounts.pennies++;
+    coinCounter(amt - 1, coinCounts);
+  }
+};
+
+
+const prefixSir = addPrefix("Sir");
+
+
+
 
