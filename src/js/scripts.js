@@ -97,7 +97,7 @@
 // }
 
 
-const hydrate = (plant) => {
+const hydrate1 = (plant) => {
   return {
     ...plant,
     water: (plant.water || 0) + 1
@@ -112,7 +112,7 @@ const changePlantState = (plant, property) => {
 }
 
 //more abstract
-const changeState = (state, prop) => {
+const c1State = (state, prop) => {
   return {
     ...state,
   [prop]: (state[prop] || 0) + 1
@@ -135,7 +135,22 @@ const c3State = (prop) => {
   }
 }
 
-const feed = c3State("soil");
-
+//tree object
 const tree = {soil: 0, water: 0, light: 0};
 
+//possible ways to use the function
+const hydrate = c3State("water");
+const feed = c3State("soil");
+const giveLight = c3State("light");
+
+//now we can use the functions like this as well
+const blueFood = c3State("soil")(5)
+const greenFood = c3State("soil")(10)
+const yuckyFood = c3State("soil")(-5)
+
+//notes about last function above: 
+// Our function is pure, does not mutate state, and has no side effects;
+// Our function is unary and takes only one argument;
+// Our function uses currying, which allows us to reuse it as a function factory;
+// Our function takes advantage of closures (because we wouldn't be able to curry without it);
+// Our function is sufficiently abstracted that it could be used with other types of objects that could be incremented or decremented as well.
