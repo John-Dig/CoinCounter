@@ -1,71 +1,141 @@
-let quarters = 0;
-let dimes = 0;
-let nickels = 0;
-let pennies = 0;
 
 
-const coinCounter = (amt) => {
-  if (amt < 25) {
-    if (amt < 10) {
-      if (amt < 5) {
-        if (amt === 0) {
-          console.log("quarters = " + quarters);
-          console.log("dimes = " + dimes);
-          console.log("nickels = " + nickels);
-          console.log("pennies = " + pennies);
-
-        }
-        else {
-          pennies++
-          return coinCounter(amt -1)
-        }
-      }
-      else {
-        nickels++
-        return coinCounter(amt -5)
-      }
-    }
-    else {
-      dimes++
-      return coinCounter(amt -10);
-    }
-
-  }
-  else {
-    quarters ++
-    return coinCounter(amt - 25);
-  }
-}
+//coin counter-----------------
+// let quarters = 0;
+// let dimes = 0;
+// let nickels = 0;
+// let pennies = 0;
 
 
+// const coinCounter = (amt) => {
+//   if (amt < 25) {
+//     if (amt < 10) {
+//       if (amt < 5) {
+//         if (amt === 0) {
+//           console.log("quarters = " + quarters);
+//           console.log("dimes = " + dimes);
+//           console.log("nickels = " + nickels);
+//           console.log("pennies = " + pennies);
 
-const coinCounter = (amt, coinCounts = { quarters: 0, dimes: 0, nickels: 0, pennies: 0 }) => {
-  if (amt < 1) {
-    console.log("quarters = " + coinCounts.quarters);
-    console.log("dimes = " + coinCounts.dimes);
-    console.log("nickels = " + coinCounts.nickels);
-    console.log("pennies = " + coinCounts.pennies);
-    return;
-  }
+//         }
+//         else {
+//           pennies++
+//           return coinCounter(amt -1)
+//         }
+//       }
+//       else {
+//         nickels++
+//         return coinCounter(amt -5)
+//       }
+//     }
+//     else {
+//       dimes++
+//       return coinCounter(amt -10);
+//     }
 
-  if (amt >= 25) {
-    coinCounts.quarters++;
-    coinCounter(amt - 25, coinCounts);
-  } else if (amt >= 10) {
-    coinCounts.dimes++;
-    coinCounter(amt - 10, coinCounts);
-  } else if (amt >= 5) {
-    coinCounts.nickels++;
-    coinCounter(amt - 5, coinCounts);
-  } else {
-    coinCounts.pennies++;
-    coinCounter(amt - 1, coinCounts);
+//   }
+//   else {
+//     quarters ++
+//     return coinCounter(amt - 25);
+//   }
+// }
+
+
+
+// const coinCounter = (amt, coinCounts = { quarters: 0, dimes: 0, nickels: 0, pennies: 0 }) => {
+//   if (amt < 1) {
+//     console.log("quarters = " + coinCounts.quarters);
+//     console.log("dimes = " + coinCounts.dimes);
+//     console.log("nickels = " + coinCounts.nickels);
+//     console.log("pennies = " + coinCounts.pennies);
+//     return;
+//   }
+
+//   if (amt >= 25) {
+//     coinCounts.quarters++;
+//     coinCounter(amt - 25, coinCounts);
+//   } else if (amt >= 10) {
+//     coinCounts.dimes++;
+//     coinCounter(amt - 10, coinCounts);
+//   } else if (amt >= 5) {
+//     coinCounts.nickels++;
+//     coinCounter(amt - 5, coinCounts);
+//   } else {
+//     coinCounts.pennies++;
+//     coinCounter(amt - 1, coinCounts);
+//   }
+// };
+
+
+// const prefixSir = addPrefix("Sir");
+
+
+
+
+//tuesday project
+
+
+// OBJECT ORIENTED WAY
+// class Plant {
+//   constructor() {
+//     this.water = 0;
+//     this.soil = 0;
+//     this.light = 0;
+//   }
+
+//   hydrate() {
+//     this.water ++
+//   }
+  
+//   feed() {
+//     this.soil ++
+//   }
+
+//   giveLight() {
+//     this.light ++
+//   }
+// }
+
+
+const hydrate = (plant) => {
+  return {
+    ...plant,
+    water: (plant.water || 0) + 1
   }
 };
 
+const changePlantState = (plant, property) => {
+  return {
+    ...plant, 
+    [property]: (plant[property] || 0) + 1
+  }
+}
 
-const prefixSir = addPrefix("Sir");
+//more abstract
+const changeState = (state, prop) => {
+  return {
+    ...state,
+  [prop]: (state[prop] || 0) + 1
+  }
+}
 
+//now accepts value. Note: implicit RETURN here with the arrow function parens.
+const c2State = (state, prop, value) => ({
+  ...state,
+[prop]: (state[prop]|| 0) + value
+})
 
+//now we curry the function
+const c3State = (prop) => {
+  return (value) => {
+    return (state) => ({
+      ...state,
+    [prop]:(state[prop] || 0) + value 
+    })
+  }
+}
 
+const feed = c3State("soil");
+
+const tree = {soil: 0, water: 0, light: 0};
 
