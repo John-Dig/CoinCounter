@@ -154,3 +154,38 @@ const yuckyFood = c3State("soil")(-5)
 // Our function uses currying, which allows us to reuse it as a function factory;
 // Our function takes advantage of closures (because we wouldn't be able to curry without it);
 // Our function is sufficiently abstracted that it could be used with other types of objects that could be incremented or decremented as well.
+
+//****************** lesson 29
+
+//the awesomeness function
+const storeState = () => {
+  let currentState = {}
+  return (stateChangeFunction) => {
+    const newState = stateChangeFunction(currentState)
+    currentState = { ...newState }
+    return newState
+  }
+}
+// storing the function, closing -currentState-, all in a constant that invokes it
+const stateControl = storeState();
+
+
+//what's technically inside stateControl
+// (stateChangeFunction) => {
+  //   const newState = stateChangeFunction(currentState);
+  //   currentState = {...newState};
+  //   return newState;
+  // }
+  
+
+  //pass in a feeding function without invoking
+const fedPlant = stateControl(blueFood);
+//{ soil: 5 }
+//now const newState = blueFood(currentState);
+
+//when blueFood(currentState) is called, it invokes:
+// (state) => ({
+//   ...state,
+// ['soil']: (state['soil'] || 0) + 5
+// })
+
